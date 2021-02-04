@@ -6,6 +6,8 @@ const app = express();
 const port = process.env.port || 5000;
 connectDB();
 
+app.use(express.json());
+
 app.get('/', (req, res) => res.send('API Running'));
 app.use('/api/auth', auth);
 app.use('/api/posts', posts);
