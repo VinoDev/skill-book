@@ -8,9 +8,8 @@ export default (req, res, next) => {
     }
 
     try {
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decodedToken);
-        req.user = decodedToken.user;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded.user;
         next()
     } catch(error) {
         res.status(401).json({ msg: 'Authorization denied' })

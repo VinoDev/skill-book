@@ -2,10 +2,10 @@ import express from 'express';
 import validator from 'express-validator';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User.js';
-const router = express.Router();
+import { jwtSign } from '../../utils.js';
 const { check, validationResult } = validator;
+const router = express.Router();
 
 // @route   GET api/users
 // @desc    Register user
@@ -60,15 +60,8 @@ router.post(
                 }
             }
 
-            jwt.sign(
-                payload, 
-                process.env.JWT_SECRET,
-                { expiresIn: process.env.TOKEN_EXPIRATION },
-                (error, token) => {
-                    if(error) throw error;
-                    res.json({ token });
-                }
-            )
+            const token = jwtSign(payload);
+            res.json({ token });
 
         } catch (error) {
             console.error(error.message);

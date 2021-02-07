@@ -1,9 +1,9 @@
 import express from 'express';
 import validator from 'express-validator';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import auth from '../../middleware/auth.js'
 import User from '../../models/User.js';
+import { jwtSign } from '../../utils.js';
 const router = express.Router();
 const { check, validationResult } = validator;
 
@@ -15,6 +15,7 @@ router.get('/', auth, async(req, res) => {
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
     } catch (error) {
+        console.log("this err ");
         console.log(error.message);
         res.status(500).send('Server error');
     }
@@ -58,15 +59,8 @@ router.post(
                 }
             }
 
-            jwt.sign(
-                payload, 
-                process.env.JWT_SECRET,
-                { expiresIn: process.env.TOKEN_EXPIRATION },
-                (error, token) => {
-                    if(error) throw error;
-                    res.json({ token });
-                }
-            )
+            const token = jwtSign(payload);
+            res.json({ token });
 
         } catch (error) {
             console.error(error.message);
