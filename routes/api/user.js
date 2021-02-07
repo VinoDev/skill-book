@@ -2,12 +2,13 @@ import express from 'express';
 import validator from 'express-validator';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
-import User from '../../models/User.js';
+import auth from '../../middleware/auth.js';
+import { User, Profile } from '../../models/index.js';
 import { jwtSign } from '../../utils.js';
 const { check, validationResult } = validator;
 const router = express.Router();
 
-// @route   GET api/users
+// @route   POST api/user
 // @desc    Register user
 // @access  Public
 router.post(
@@ -67,6 +68,28 @@ router.post(
             console.error(error.message);
             res.status(500).send("Server error");
         }
+})
+
+// @route   DELETE api/user
+// @desc    Delete user, profile & posts
+// @access  Private
+router.delete('/', auth, async(req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+
+        if(!user){
+            return res.status(400).json({ errors: [ { msg: 'User not found.' } ]})
+        }
+
+        await Profile.findOneAndRemove({ user: req.user.id });
+
+        await User.findOneAndRemove({ _id: req.user.id });
+
+        res.json({ msg: 'User deleted' });
+    } catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
 })
 
 export default router;
