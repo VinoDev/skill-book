@@ -188,4 +188,89 @@ router.put('/experience/:exp_id', auth, async(req, res) => {
             res.status(500).send('Server Error');
         }
 })
+
+// @route   PUT api/profile/education
+// @desc    Add profile education
+// @access  Private
+router.put(
+    '/education', 
+    [
+        auth,
+        [
+            check('school', 'School is required').notEmpty(),
+            check('degree', 'Degree is required').notEmpty(),
+            check('fieldofstudy', 'Field of study is required').notEmpty(),
+            check('from', 'From date is requierd').notEmpty()
+        ]
+    ], 
+    async(req, res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {
+            school,
+            degree,
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        } = req.body;
+
+        const newEdu = {
+            school,
+            degree,
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        }
+
+        try {
+            const profile = await Profile.findOne({
+                user: req.user.id
+            })
+            if(!profile){
+                return res.status(400).json({ msg: 'Profile not found' });
+            }
+            profile.education.unshift(newEdu);
+            await profile.save()
+
+            res.json(profile);
+        } catch(error) {
+            console.error(error.message);
+            res.status(500).send('Server Error');
+        }
+})
+
+// @route   PUT api/profile/education/:edu_id
+// @desc    Remove education from profile
+// @access  Private
+router.put('/education/:edu_id', auth, async(req, res) => {
+        try {
+            const profile = await Profile.findOne({
+                user: req.user.id
+            })
+            if(!profile){
+                return res.status(400).json({ msg: 'Profile not found' });
+            }
+            if(profile.education.length === 0){
+                return res.status(400).json({ msg: 'This profile has no education.' });
+            }
+
+            const removeIndex = profile.education
+                .map(edu => edu.id)
+                .indexOf(req.params.edu_id);
+            
+            profile.education.splice(removeIndex, 1);
+
+            await profile.save()
+            res.json(profile);
+        } catch(error) {
+            console.error(error.message);
+            res.status(500).send('Server Error');
+        }
+})
 export default router;
