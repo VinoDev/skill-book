@@ -1,5 +1,6 @@
 import express from 'express';
 import validator from 'express-validator';
+import fetch from 'node-fetch';
 import auth from '../../middleware/auth.js';
 import { User, Profile } from '../../models/index.js';
 import { createProfileObject } from '../../utils.js';
@@ -272,5 +273,29 @@ router.put('/education/:edu_id', auth, async(req, res) => {
             console.error(error.message);
             res.status(500).send('Server Error');
         }
+})
+
+// @route   PUT api/profile/github/:username
+// @desc    Get user repo from github
+// @access  Public
+router.get('/github/:username', async(req, res) => {
+    try {
+        const uri = `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}`;
+
+        const githubResponse = await fetch(uri);
+
+        if(githubResponse.status === 404) {
+            return res.status(404).json({ msg: 'No github profile found'});
+        } else if (githubResponse.status === 200) {
+            return res.json(
+                await githubResponse.json()
+            );
+        } else {
+            return res.status(400).json({ msg: 'Something went wrong with fetching github data.'});
+        }
+    } catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
 })
 export default router;
