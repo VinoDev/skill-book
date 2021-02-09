@@ -16,14 +16,14 @@ router.get('/me', auth, async(req, res) => {
             .populate('user', ['name', 'avatar']);
         
         if(!profile) {
-            return res.status(400).json({msg: 'There is no profile for this user'});
+            return res.status(400).json({ errors: [{ msg: 'There is no profile for this user' }] });
         }
 
         res.json(profile);  
         
     } catch(error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
     }
 })
 
@@ -65,7 +65,7 @@ router.post(
 
         } catch(error) {
             console.error(error.message);
-            res.status(500).send('Server Error');
+            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
         }
     }
 )
@@ -79,7 +79,7 @@ router.get('/', async(req, res) => {
         res.json(profiles);
     } catch(error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
     }
 })
 
@@ -93,16 +93,16 @@ router.get('/user/:user_id', async(req, res) => {
         }).populate('user', ['name', 'avatar']) 
 
         if(!profile){
-            return res.status(400).json({ msg: 'Profile not found' });
+            return res.status(400).json({ errors: [{ msg: 'There is no profile for this user' }] });
         }
 
         res.json(profile);
     } catch(error) {
         console.error(error.message);
         if(error.kind === 'ObjectId') {
-            return res.status(400).json({ msg: 'Profile not found' });
+            return res.status(400).json({ errors: [{ msg: 'Profile not found' }] });
         }
-        res.status(500).send('Server Error');
+        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
     }
 })
 
@@ -149,7 +149,7 @@ router.put(
                 user: req.user.id
             })
             if(!profile){
-                return res.status(400).json({ msg: 'Profile not found' });
+                return res.status(400).json({ errors: [{ msg: 'Profile not found' }] });
             }
             profile.experience.unshift(newExp);
             await profile.save()
@@ -157,7 +157,7 @@ router.put(
             res.json(profile);
         } catch(error) {
             console.error(error.message);
-            res.status(500).send('Server Error');
+            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
         }
 })
 
@@ -170,10 +170,10 @@ router.put('/experience/:exp_id', auth, async(req, res) => {
                 user: req.user.id
             })
             if(!profile){
-                return res.status(400).json({ msg: 'Profile not found' });
+                return res.status(400).json({ errors: [{ msg: 'Profile not found' }] });
             }
             if(profile.experience.length === 0){
-                return res.status(400).json({ msg: 'This profile has no experience.' });
+                return res.status(400).json({ errors: [{ msg: 'This profile has no experience' }] });
             }
 
             const removeIndex = profile.experience
@@ -186,7 +186,7 @@ router.put('/experience/:exp_id', auth, async(req, res) => {
             res.json(profile);
         } catch(error) {
             console.error(error.message);
-            res.status(500).send('Server Error');
+            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
         }
 })
 
@@ -234,7 +234,7 @@ router.put(
                 user: req.user.id
             })
             if(!profile){
-                return res.status(400).json({ msg: 'Profile not found' });
+                return res.status(400).json({ errors: [{ msg: 'Profile not found' }] });
             }
             profile.education.unshift(newEdu);
             await profile.save()
@@ -242,7 +242,7 @@ router.put(
             res.json(profile);
         } catch(error) {
             console.error(error.message);
-            res.status(500).send('Server Error');
+            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
         }
 })
 
@@ -255,10 +255,10 @@ router.put('/education/:edu_id', auth, async(req, res) => {
                 user: req.user.id
             })
             if(!profile){
-                return res.status(400).json({ msg: 'Profile not found' });
+                return res.status(400).json({ errors: [{ msg: 'Profile not found' }] });
             }
             if(profile.education.length === 0){
-                return res.status(400).json({ msg: 'This profile has no education.' });
+                return res.status(400).json({ errors: [{ msg: 'This profile has no education' }] });
             }
 
             const removeIndex = profile.education
@@ -271,7 +271,7 @@ router.put('/education/:edu_id', auth, async(req, res) => {
             res.json(profile);
         } catch(error) {
             console.error(error.message);
-            res.status(500).send('Server Error');
+            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
         }
 })
 
@@ -285,17 +285,19 @@ router.get('/github/:username', async(req, res) => {
         const githubResponse = await fetch(uri);
 
         if(githubResponse.status === 404) {
-            return res.status(404).json({ msg: 'No github profile found'});
+            return res.status(400).json({ errors: [{ msg: 'No github profile found' }] });
         } else if (githubResponse.status === 200) {
             return res.json(
                 await githubResponse.json()
             );
         } else {
-            return res.status(400).json({ msg: 'Something went wrong with fetching github data.'});
+            return res.status(400).json({ 
+                errors: [{ msg: 'Something went wrong with fetching github data.'}] 
+            });
         }
     } catch(error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
     }
 })
 export default router;

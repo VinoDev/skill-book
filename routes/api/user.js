@@ -88,7 +88,7 @@ router.delete('/', auth, async(req, res) => {
         res.json({ msg: 'User deleted' });
     } catch(error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
     }
 })
 
