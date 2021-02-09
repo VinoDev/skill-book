@@ -3,7 +3,8 @@ import validator from 'express-validator';
 import bcrypt from 'bcryptjs';
 import auth from '../../middleware/auth.js'
 import User from '../../models/User.js';
-import { jwtSign } from '../../utils.js';
+import { jwtSign, errorHandler } from '../../utils.js';
+
 const router = express.Router();
 const { check, validationResult } = validator;
 
@@ -16,7 +17,7 @@ router.get('/', auth, async(req, res) => {
         res.json(user);
     } catch (error) {
         console.error(error.message);
-        res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+        errorHandler.serverError(res);
     }
 })
 
@@ -34,7 +35,7 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return errorHandler.validationErrors(res, errors);
         }
 
         const { email, password } = req.body; 
@@ -43,13 +44,13 @@ router.post(
             const user = await User.findOne({ email });
 
             if(!user) {
-                return res.status(400).json({ errors: [ {msg: 'Invalid Credentials' } ]})
+                return errorHandler.customError(res, 400, 'Invalid Credentials');
             }
 
             const isMatch = await bcrypt.compare(password, user.password);
 
             if(!isMatch) {
-                return res.status(400).json({ errors: [ { msg: 'Invalid Credentials' } ] })
+                return errorHandler.customError(res, 400, 'Invalid Credentials');
             }
 
             const payload = {
@@ -63,7 +64,7 @@ router.post(
 
         } catch (error) {
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 })
 

@@ -46,4 +46,54 @@ const createProfileObject = (req) => {
     return profileObject;
 }
 
-export { jwtSign, createProfileObject };
+const errorHandler = {
+    postNotFound: (res) => {
+        return res.status(400).json(
+            { errors: [ 
+                { msg: 'Post not found.' } 
+            ]
+        })
+    },
+    profileNotFound: (res) => {
+        return res.status(400).json(
+            { errors: [ 
+                { msg: 'Profile not found.' } 
+            ]
+        })
+    },
+    userNotFound: (res) => {
+        return res.status(400).json(
+            { errors: [ 
+                { msg: 'User not found.' } 
+            ]
+        })
+    },
+    notAuthorized: (res) => {
+        return res.status(401).json(
+            { errors: [
+                { msg: 'User not authorized' }
+            ] 
+        })
+    },
+    serverError: (res) => {
+        return res.status(500).send(
+            { errors: [
+                { msg: 'Server Error' }
+            ] 
+        })
+    },
+    validationErrors: (res, errors) => {
+        return res.status(400).json(
+            { errors: errors.array() }
+        );
+    },
+    customError: (res, statusCode, msg) => {
+        return res.status(statusCode).send(
+            { errors: [
+                { msg: msg }
+            ] 
+        })
+    }
+}
+
+export { jwtSign, createProfileObject, errorHandler };

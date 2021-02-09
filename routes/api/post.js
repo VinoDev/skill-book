@@ -2,6 +2,7 @@ import express from 'express';
 import validator from 'express-validator';
 import auth from '../../middleware/auth.js';
 import { User, Post } from '../../models/index.js';
+import { errorHandler } from '../../utils.js';
 const { check, validationResult } = validator;
 const router = express.Router();
 
@@ -19,13 +20,13 @@ router.post(
     async(req, res) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.status(400).json({ errors: errors.array() });
+            return errorHandler.validationErrors(res, errors);
         }
 
         try {
             const user = await User.findById(req.user.id).select('-password');
             if(!user){
-                return res.status(400).json({ errors: [ { msg: 'User not found.' } ]})
+                return errorHandler.userNotFound(res);
             }
     
             const newPost = new Post({
@@ -40,7 +41,7 @@ router.post(
             res.json(post);
         } catch (error) {
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -55,14 +56,14 @@ router.get(
         try {
             const posts = await Post.find().sort({ date: -1 });
 
-            if(!posts){
-                return res.status(404).json({ errors: [ { msg: 'Posts not found.' } ]})
+            if(posts.length === 0){
+                return errorHandler.customError(res, 404, 'Posts not found');
             }
 
             res.json(posts);
         } catch (error) {
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -78,17 +79,17 @@ router.get(
             const post = await Post.findById(req.params.id);
 
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             res.json(post);
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -104,11 +105,11 @@ router.delete(
             const post = await Post.findById(req.params.id);
 
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             if(post.user.toString() !== req.user.id) {
-                return res.status(401).json({ errors: [{ msg: 'User not authorized' }] });
+                return errorHandler.notAuthorized(res);
             }
 
             await post.remove();
@@ -116,11 +117,11 @@ router.delete(
             res.json({ msg: "Post removed"});
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -136,11 +137,11 @@ router.put(
             const post = await Post.findById(req.params.id);
             
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-                return res.status(400).json({ errors: [{ msg: 'Post already liked'}] });
+                return errorHandler.customError(res, 400, 'Post already liked');
             }
 
             post.likes.unshift({ user: req.user.id });
@@ -150,11 +151,11 @@ router.put(
             res.json(post.likes);
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -170,11 +171,11 @@ router.put(
             const post = await Post.findById(req.params.id);
             
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-                return res.status(400).json( { errors: [{ msg: 'Post has not yet been liked'}] });
+                return errorHandler.customError(res, 400, 'Post has not yet been liked');
             }
 
             const removeIndex = post.likes
@@ -188,11 +189,11 @@ router.put(
             res.json(post.likes);
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -211,18 +212,18 @@ router.put(
     async(req, res) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.status(400).json({ errors: errors.array()});
+            return errorHandler.validationErrors(res, errors);
         }
 
         try {
             const user = await User.findById(req.user.id).select('-password');
             if(!user){
-                return res.status(400).json({ errors: [ { msg: 'User not found.' } ]})
+                return errorHandler.userNotFound(res);
             }
 
             const post = await Post.findById(req.params.id);
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             const newComment = {
@@ -239,11 +240,11 @@ router.put(
             res.json(post.comments);
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
@@ -258,21 +259,21 @@ router.put(
         try {
             const user = await User.findById(req.user.id).select('-password');
             if(!user){
-                return res.status(400).json({ errors: [ { msg: 'User not found.' } ]})
+                return errorHandler.userNotFound(res);
             }
 
             const post = await Post.findById(req.params.id);
             if(!post){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             const comment = post.comments.find(comment => comment.id === req.params.comment_id);
             if(!comment){
-                return res.status(404).json({ errors: [{ msg: "Comment does not exist" }] })
+                return errorHandler.customError(res, 404, "Comment does not exist");
             }
 
             if(comment.user.toString() !== req.user.id) {
-                return res.status(401).json({ errors: [{ msg: "User not authorized" }] })
+                return errorHandler.notAuthorized(res);
             }
 
             const removeIndex = post.comments
@@ -286,11 +287,11 @@ router.put(
             res.json(post.comments);
         } catch (error) {
             if(error.kind === 'ObjectId'){
-                return res.status(404).json({ errors: [ { msg: 'Post not found.' } ]})
+                return errorHandler.postNotFound(res);
             }
 
             console.error(error.message);
-            res.status(500).send({ errors: [{ msg: 'Server Error'}] });
+            errorHandler.serverError(res);
         }
 
 })
