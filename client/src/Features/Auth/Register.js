@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
+import useAlert from '../Alert/useAlert.js';
 
 const Register = () => {
 
@@ -10,6 +11,8 @@ const Register = () => {
         password2: ''
     });
 
+    const createAlert = useAlert();
+
     const { name, email, password, password2 } = formData;
 
     const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value});
@@ -17,6 +20,7 @@ const Register = () => {
     const handleSubmit = e => {
         e.preventDefault();
         if(password !== password2) {
+            createAlert('Password do not match', 'danger');
             console.log('Passwords do not match');
         } else {
             console.log(formData);
@@ -24,7 +28,7 @@ const Register = () => {
     }
 
     return (
-        <div className="container">
+        <div>
             <h1 className="large text-primary">Sign Up</h1>
             <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
             <form className="form" onSubmit={e => handleSubmit(e)}>

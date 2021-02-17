@@ -18,7 +18,7 @@ const Login = () => {
     }
 
     return (
-        <div className="container">
+        <div>
             <h1 className="large text-primary">Login</h1>
             <p className="lead"><i className="fas fa-user"></i> Login To Your Account</p>
             <form className="form" onSubmit={e => handleSubmit(e)}>
