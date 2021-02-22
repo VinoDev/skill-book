@@ -9,7 +9,6 @@ const alertSlice = createSlice({
   initialState: initialState,
   reducers: {
     setAlert: (state, action) => {
-      console.log(action.payload);
       state.alerts = [...state.alerts, action.payload]
     },
     removeAlert: (state, action) => {

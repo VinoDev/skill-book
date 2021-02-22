@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import useAlert from '../Alert/useAlert.js';
+import useRegister from "../Auth/useRegister.js";
 
 const Register = () => {
 
@@ -12,6 +13,7 @@ const Register = () => {
     });
 
     const createAlert = useAlert();
+    const register = useRegister();
 
     const { name, email, password, password2 } = formData;
 
@@ -23,6 +25,7 @@ const Register = () => {
             createAlert('Password do not match', 'danger');
             console.log('Passwords do not match');
         } else {
+            register({ name, email, password })
             console.log(formData);
         }
     }
@@ -39,7 +42,7 @@ const Register = () => {
                         name="name" 
                         value={name}
                         onChange={e => handleChange(e)}
-                        required 
+                        // required 
                     />
                 </div>
                 <div className="form-group">
@@ -49,6 +52,7 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange={e => handleChange(e)}
+                        // required
                     />
                     <small className="form-text">
                         This site uses Gravatar so if you want a profile image, use a
@@ -60,7 +64,7 @@ const Register = () => {
                       type="password"
                       placeholder="Password"
                       name="password"
-                      minLength="6"
+                    //   minLength="6"
                       value={password}
                       onChange={e => handleChange(e)}
                     />
@@ -70,7 +74,7 @@ const Register = () => {
                       type="password"
                       placeholder="Confirm Password"
                       name="password2"
-                      minLength="6"
+                    //   minLength="6"
                       value={password2}
                       onChange={e => handleChange(e)}
                     />
