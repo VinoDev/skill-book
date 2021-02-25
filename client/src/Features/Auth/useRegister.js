@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
+import fetcher from "../../utils/fetcher.js";
 
 const { registerSuccess, registerFail } = authSlice.actions;
 
@@ -8,9 +9,25 @@ const useRegister = () => {
     const dispatch = useDispatch();
     const createAlert = useAlert();
 
+    const alertErrors = (errors) => {
+        errors.forEach(error => {
+            createAlert(error.msg, 'danger')
+        })
+    }
+
+    const registerFailRemoveToken = () => {
+        dispatch(registerFail());
+        localStorage.removeItem('token')  
+    }
+
+    const registerAndSaveToken = (payload) => {
+        dispatch(registerSuccess(payload));
+        localStorage.setItem('token', payload.token)
+    }
+
     const register = async ({name, email, password}) => {
         try {
-            const res = await fetch('http://localhost:5000/api/user', {
+            const res = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json'
@@ -20,20 +37,15 @@ const useRegister = () => {
             const resJson = await res.json()
 
             if(resJson.errors) {
-                resJson.errors.forEach(error => {
-                    createAlert(error.msg, 'danger')
-                })
-
-                dispatch(registerFail());       
+                alertErrors(resJson.errors);
+                registerFailRemoveToken()
             } else {
-                dispatch(registerSuccess(resJson));       
+                registerAndSaveToken(resJson);
             }
         } catch (error) {
-
-            dispatch(registerFail());       
+            registerFailRemoveToken()
             console.log(error);
             createAlert("Something went wrong, try again later.", 'danger')
-
         }
     }
     return register

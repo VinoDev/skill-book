@@ -13,16 +13,24 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     registerSuccess: (state, action) => {
-        //set token to local storge
-        state.token = action.payload;
+        state.token = action.payload.token;
         state.isAuthenticated = true;
         state.isLoading = false;
     },
     registerFail: (state, action) => {
-      //remove token from local storage
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
+    },
+    userLoaded: (state, action) => {
+      state.isAuthenticated = true;
+      state.loading = false;
+      state.user = action.payload;
+    },
+    authError: (state, action) => {
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.user = null;
     }   
   },
 });
