@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import useLogin from "../Auth/useLogin.js";
 
 const Login = () => {
 
@@ -8,13 +10,20 @@ const Login = () => {
         password: ''
     });
 
+    const login = useLogin();
+    const { isAuthenticated } = useSelector((state) => state.auth);
+
     const { email, password } = formData;
 
     const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value});
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(formData);
+        login({ email, password });
+    }
+
+    if(isAuthenticated) {
+        return <Redirect to="/dashboard"/>
     }
 
     return (

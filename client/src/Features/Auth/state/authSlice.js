@@ -21,6 +21,7 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
+      state.user = null;
     },
     userLoaded: (state, action) => {
       state.isAuthenticated = true;
@@ -28,10 +29,28 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     authError: (state, action) => {
+      state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
-    }   
+    },
+    loginSuccess: (state, action) => {
+      state.isAuthenticated = true;
+      state.loading = false;
+      state.user = action.payload;
+    },
+    loginFailed: (state, action) => {
+      state.token = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.user = null;
+    },
+    logout: (state, action) => {
+      state.token = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.user = null;
+    }
   },
 });
 

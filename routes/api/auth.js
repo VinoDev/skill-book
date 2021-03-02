@@ -9,7 +9,7 @@ const router = express.Router();
 const { check, validationResult } = validator;
 
 // @route   GET api/auth
-// @desc    Test route
+// @desc    User auth
 // @access  Public
 router.get('/', auth, async(req, res) => {
     try {

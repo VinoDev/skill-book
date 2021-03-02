@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { useSelector } from "react-redux";
 import useAlert from '../Alert/useAlert.js';
 import useRegister from "../Auth/useRegister.js";
 
@@ -14,6 +15,7 @@ const Register = () => {
 
     const createAlert = useAlert();
     const register = useRegister();
+    const { isAuthenticated } = useSelector((state) => state.auth);
 
     const { name, email, password, password2 } = formData;
 
@@ -26,8 +28,12 @@ const Register = () => {
             console.log('Passwords do not match');
         } else {
             register({ name, email, password })
-            console.log(formData);
+            console.log("Registration complete");
         }
+    }
+
+    if(isAuthenticated) {
+        return <Redirect to="/dashboard"/>
     }
 
     return (

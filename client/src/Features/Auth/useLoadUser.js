@@ -11,7 +11,13 @@ const useLoadUser = () => {
         try{
             const res = await fetcher('/api/auth')
             const resJson = await res.json();
-            dispatch(userLoaded(resJson)); 
+            if(res.status !== 200) {
+                console.log("loadUser failed");
+                localStorage.removeItem('token');
+                dispatch(authError());
+            } else {
+                dispatch(userLoaded(resJson)); 
+            }
         } catch (error) {
             console.log("loadUser failed");
             localStorage.removeItem('token');
