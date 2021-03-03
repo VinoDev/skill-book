@@ -10,7 +10,7 @@ const Login = () => {
         password: ''
     });
 
-    const login = useLogin();
+    const [ login ] = useLogin();
     const { isAuthenticated } = useSelector((state) => state.auth);
 
     const { email, password } = formData;

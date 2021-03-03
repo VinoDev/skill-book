@@ -3,7 +3,7 @@ import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
 import fetcher from "../../utils/fetcher.js";
 
-const { loginSuccess, loginFailed } = authSlice.actions;
+const { loginSuccess, loginFailed, logout } = authSlice.actions;
 
 const useLogin = () => {
     const dispatch = useDispatch();
@@ -50,7 +50,14 @@ const useLogin = () => {
             createAlert("Something went wrong, try again later.", 'danger')
         }
     }
-    return login
+
+    const logoutUser = () => {
+        dispatch(logout());
+        localStorage.removeItem('token')  
+        console.log("User logout");
+    }
+
+    return [ login, logoutUser ];
 }
 
 export default useLogin;
