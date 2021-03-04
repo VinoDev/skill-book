@@ -7,6 +7,8 @@ import Register from './Features/Auth/Register.js';
 import Login from './Features/Auth/Login.js';
 import AlertGroup from './Features/Alert/AlertGroup.js';
 import useLoadUser from './Features/Auth/useLoadUser.js';
+import Dashboard from './Features/Dashboard/Dashboard.js';
+import PrivateRoute from './utils/PrivateRoute.js';
 
 function App() {
   const loadUser = useLoadUser();
@@ -24,6 +26,7 @@ function App() {
           <Switch>
             <Route path="/register" component={Register} exact={true}></Route>
             <Route path="/login" component={Login} exact={true}></Route>
+            <PrivateRoute path="/dashboard" component={Dashboard} exact={true}></PrivateRoute>
           </Switch>
         </div>
       </Fragment>
