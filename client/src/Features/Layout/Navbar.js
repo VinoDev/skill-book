@@ -7,7 +7,8 @@ const Navbar = () => {
 
   const authLinks = (
     <ul>
-      <li><a onClick={logoutUser} href="/#!">logout</a></li>
+      <li><NavLink to='/dashboard'><span>Dashboard</span></NavLink></li>
+      <li><a onClick={logoutUser}>logout</a></li>
     </ul>   
   )
 
@@ -22,7 +23,7 @@ const Navbar = () => {
   return (
       <nav className="navbar bg-dark">
         <h1>
-          <a href="index.html"><i className="fas fa-code"></i> SkillBook</a>
+          <NavLink to="/"><i className="fas fa-code"></i> SkillBook</NavLink>
         </h1>
         { !loading && <div>{ isAuthenticated ? authLinks : guestLinks }</div>}
       </nav>
