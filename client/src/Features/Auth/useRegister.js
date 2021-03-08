@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
-import fetcher from "../../utils/fetcher.js";
 
 const { registerSuccess, registerFail } = authSlice.actions;
 

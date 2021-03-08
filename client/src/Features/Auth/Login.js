@@ -37,6 +37,7 @@ const Login = () => {
                         placeholder="Email Address" 
                         name="email"
                         value={email}
+                        required
                         onChange={e => handleChange(e)}
                     />
                 </div>

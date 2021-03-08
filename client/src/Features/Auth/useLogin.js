@@ -37,17 +37,16 @@ const useLogin = () => {
             });
             const resJson = await res.json()
 
-            console.log(resJson);
-
             if(resJson.errors) {
                 alertErrors(resJson.errors);
                 loginFailRemoveToken()
             } else {
                 loginAndSaveToken(resJson);
+                loadUser()
             }
         } catch (error) {
-            loginFailRemoveToken()
             console.log(error);
+            loginFailRemoveToken()
             createAlert("Something went wrong, try again later.", 'danger')
         }
     }

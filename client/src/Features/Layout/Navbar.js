@@ -8,7 +8,7 @@ const Navbar = () => {
   const authLinks = (
     <ul>
       <li><NavLink to='/dashboard'><span>Dashboard</span></NavLink></li>
-      <li><a onClick={logoutUser}>logout</a></li>
+      <li><a onClick={logoutUser} href="/">logout</a></li>
     </ul>   
   )
 
