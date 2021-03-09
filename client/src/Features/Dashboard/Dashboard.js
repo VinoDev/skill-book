@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useProfile from '../profile/useProfile.js';
+import Profile from '../profile/Profile.js';
 import Spinner from '../Layout/Spinner.js';
 
 const Dashboard = () => {        

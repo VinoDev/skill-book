@@ -8,6 +8,7 @@ import Login from './Features/Auth/Login.js';
 import AlertGroup from './Features/Alert/AlertGroup.js';
 import useLoadUser from './Features/Auth/useLoadUser.js';
 import Dashboard from './Features/Dashboard/Dashboard.js';
+import CreateProfile from './Features/profile/forms/CreateProfile.js'
 import PrivateRoute from './utils/PrivateRoute.js';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/register" component={Register} exact={true}></Route>
             <Route path="/login" component={Login} exact={true}></Route>
             <PrivateRoute path="/dashboard" component={Dashboard} exact={true}></PrivateRoute>
+            <PrivateRoute path="/create-profile" component={CreateProfile} exact={true}></PrivateRoute>
           </Switch>
         </div>
       </Fragment>
