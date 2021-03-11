@@ -52,7 +52,7 @@ router.post(
             const profile = await Profile.findOne({ user: req.user.id })
             if(profile) {
                 const updatedProfile = await Profile.findOneAndUpdate(
-                    { user: req.user,id },
+                    { user: req.user.id },
                     { $set: profileObject },
                     { new: true }
                 )

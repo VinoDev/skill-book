@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useCreateProfile from '../useCreateProfile.js';
+import useEditProfile from '../useEditProfile.js';
 
-const CreateProfile = () => {        
+const EditProfile = () => {      
 
-    const [ onSubmit, onChange, formData ] = useCreateProfile();
+    const [ onSubmit, onChange, formData ] = useEditProfile();
 
     const [ displaySocialInputs, toggleSocialInputs ] = useState(false)
 
@@ -153,4 +153,4 @@ const CreateProfile = () => {
     )
 }
 
-export default CreateProfile
+export default EditProfile

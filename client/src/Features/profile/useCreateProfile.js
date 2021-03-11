@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import profileSlice from "./state/profileSlice.js";
@@ -12,6 +12,31 @@ const useCreateProfile = () => {
     const dispatch = useDispatch();
     const { getProfile, profileError } = profileSlice.actions;
     const { profile, loading } = useSelector((state) => state.profile);
+
+    const [ formData, setFormData ] = useState({
+        company: '',
+        website: '',
+        location: '',
+        status: '',
+        skills: '',
+        githubusername: '',
+        bio: '',
+        twitter: '',
+        facebook: '',
+        linkedin: '',
+        youtube: '',
+        instagram: ''
+    })
+    
+    const onChange = e => setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
+
+    const onSubmit = e => {
+        e.preventDefault()
+        createProfile(formData)
+    }
 
     const createProfile = async (formData) => {
         try {
@@ -47,7 +72,7 @@ const useCreateProfile = () => {
         }
     }
   
-    return [ createProfile, profile, loading ];
+    return [ onSubmit, onChange, formData ];
 }
 
 export default useCreateProfile;
