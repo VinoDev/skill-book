@@ -22,15 +22,13 @@ function App() {
       <Fragment>
         <Navbar/>
         <Route path='/' component={Landing} exact={true}></Route>
-        <div className="container">
-          <AlertGroup/>
-          <Switch>
-            <Route path="/register" component={Register} exact={true}></Route>
-            <Route path="/login" component={Login} exact={true}></Route>
-            <PrivateRoute path="/dashboard" component={Dashboard} exact={true}></PrivateRoute>
-            <PrivateRoute path="/create-profile" component={CreateProfile} exact={true}></PrivateRoute>
-          </Switch>
-        </div>
+        <AlertGroup/>      
+        <Switch>
+          <Route path="/register" component={Register} exact={true}></Route>
+          <Route path="/login" component={Login} exact={true}></Route>
+          <PrivateRoute path="/dashboard" component={Dashboard} exact={true}></PrivateRoute>
+          <PrivateRoute path="/create-profile" component={CreateProfile} exact={true}></PrivateRoute>
+        </Switch>
       </Fragment>
     </Router>
   );

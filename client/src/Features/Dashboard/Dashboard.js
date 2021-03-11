@@ -14,7 +14,7 @@ const Dashboard = () => {
         return <Spinner />
     } else {
         return (
-            <div>
+            <div className="container">
                 <h1 className="large text-primary">Dashboard</h1>
                 <p className="lead">
                     <i className="fas fa-user"/>

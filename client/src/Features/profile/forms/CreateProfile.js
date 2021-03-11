@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useCreateProfile from '../useCreateProfile.js';
+import useEditProfile from '../useEditProfile.js';
 
 const CreateProfile = () => {        
     const [ formData, setFormData ] = useState({
@@ -17,6 +19,8 @@ const CreateProfile = () => {
         youtube: '',
         instagram: ''
     })
+
+    const [ createProfile ] = useCreateProfile();
 
     const [ displaySocialInputs, toggleSocialInputs ] = useState(false)
 
@@ -40,8 +44,13 @@ const CreateProfile = () => {
         [e.target.name]: e.target.value
     })
 
+    const onSubmit = e => {
+        e.preventDefault()
+        createProfile(formData)
+    }
+
     return (
-        <div>
+        <div className="container">
             <h1 className="large text-primary">
               Create Your Profile
             </h1>
@@ -50,10 +59,10 @@ const CreateProfile = () => {
               profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit={e => onSubmit(e)}>
               <div className="form-group">
-                <select name="status" value={status} onChange={e => onChange(e)}>
-                  <option value="0">* Select Professional Status</option>
+                <select name="status" value={status} onChange={e => onChange(e)} required>
+                  <option value="">* Select Professional Status</option>
                   <option value="Developer">Developer</option>
                   <option value="Junior Developer">Junior Developer</option>
                   <option value="Senior Developer">Senior Developer</option>
@@ -91,7 +100,7 @@ const CreateProfile = () => {
               </div>
               <div className="form-group">
                 <input type="text" placeholder="* Skills" name="skills" 
-                  value={skills} onChange={e => onChange(e)}
+                  value={skills} onChange={e => onChange(e)} required
                 />
                 <small className="form-text"
                   >Please use comma separated values (eg.
@@ -163,7 +172,7 @@ const CreateProfile = () => {
                   </div>
               }        
               <input type="submit" className="btn btn-primary my-1" />
-              <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+              <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
             </form>
             
         </div>

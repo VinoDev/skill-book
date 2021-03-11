@@ -7,9 +7,11 @@ const AlertGroup = () => {
     return (
         <div>
             {alerts.length > 0 && 
-                alerts.map(alert => (
-                    <Alert data={alert} key={alert.id}/>
-                ))                
+                <div className="container">
+                    {alerts.map(alert => (
+                        <Alert data={alert} key={alert.id}/>
+                    ))}   
+                </div>             
             }
         </div>
     )
