@@ -24,7 +24,13 @@ const profileSlice = createSlice({
       state.profile = null;
       state.repos = [];
       state.loading = false;
-    }   
+    },
+    addExperience: (state, action) => {
+      state.profile = action.payload;
+      state.loading = false;    },
+    addEducation: (state, action) => {
+      state.profile = action.payload;
+      state.loading = false;    }   
   },
 });
 
