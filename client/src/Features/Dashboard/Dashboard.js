@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DashboardActions from './DashboardActions.js';
-import useProfile from '../profile/useProfile.js';
+import Education from './Education.js'
+import Experience from './Experience.js'
 import Profile from '../profile/Profile.js';
+import useProfile from '../profile/useProfile.js';
 import Spinner from '../Layout/Spinner.js';
 
 const Dashboard = () => {        
@@ -24,6 +26,8 @@ const Dashboard = () => {
                 {profile !== null ? (
                     <div>
                         <DashboardActions/>
+                        <Experience experience={profile.experience}/>
+                        <Education education={profile.education}/>
                     </div>
                 ) : (
                     <div>

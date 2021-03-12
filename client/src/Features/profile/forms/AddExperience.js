@@ -57,7 +57,7 @@ const AddExperience = () => {
                 </div>
                 <div className="form-group">
                     <h4>From Date</h4>
-                    <input type="date" name="from" value={from} onChange={e => onChange(e)}/>
+                    <input type="date" name="from" value={from} required onChange={e => onChange(e)}/>
                 </div>
                 <div className="form-group">
                     <p>
