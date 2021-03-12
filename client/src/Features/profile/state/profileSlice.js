@@ -27,10 +27,20 @@ const profileSlice = createSlice({
     },
     addExperience: (state, action) => {
       state.profile = action.payload;
-      state.loading = false;    },
+      state.loading = false;    
+    },
     addEducation: (state, action) => {
       state.profile = action.payload;
-      state.loading = false;    }   
+      state.loading = false;    
+    },
+    removeExperience: (state, action) => {
+      state.profile = action.payload;
+      state.loading = false;
+    },
+    removeEducation: (state, action) => {
+      state.profile = action.payload;
+      state.loading = false;
+    }
   },
 });
 

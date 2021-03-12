@@ -179,6 +179,9 @@ router.put('/experience/:exp_id', auth, async(req, res) => {
             const removeIndex = profile.experience
                 .map(exp => exp.id)
                 .indexOf(req.params.exp_id);
+
+            if(removeIndex === -1)
+                return errorHandler.customError(res, 400, 'Experience not found');
             
             profile.experience.splice(removeIndex, 1);
 
@@ -264,7 +267,10 @@ router.put('/education/:edu_id', auth, async(req, res) => {
             const removeIndex = profile.education
                 .map(edu => edu.id)
                 .indexOf(req.params.edu_id);
-            
+               
+            if(removeIndex === -1)
+                return errorHandler.customError(res, 400, 'Education not found');
+
             profile.education.splice(removeIndex, 1);
 
             await profile.save()

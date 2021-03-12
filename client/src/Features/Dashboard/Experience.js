@@ -1,6 +1,9 @@
 import Moment from 'react-moment';
+import useRemoveExperience from '../profile/useRemoveExperience.js'
 
 const Experience = ({ experience }) => {
+
+    const [ handleRemoveExperience ] = useRemoveExperience();
 
     const experiences = experience.map(exp => (
         <tr key={exp._id}>
@@ -12,7 +15,7 @@ const Experience = ({ experience }) => {
                 }
             </td>
             <td>
-                <button className="btn btn-danger">Delete</button>
+                <button onClick={() => handleRemoveExperience(exp._id)} className="btn btn-danger">Delete</button>
             </td>
         </tr>
     ))

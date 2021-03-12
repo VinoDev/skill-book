@@ -1,6 +1,9 @@
 import Moment from 'react-moment';
+import useRemoveEducation from '../profile/useRemoveEducation.js'
 
 const Education = ({ education }) => {
+
+    const [ handleRemoveEducation ] = useRemoveEducation();
 
     const educations = education.map(edu => (
         <tr key={edu._id}>
@@ -12,7 +15,7 @@ const Education = ({ education }) => {
                 }
             </td>
             <td>
-                <button className="btn btn-danger">Delete</button>
+                <button onClick={() => handleRemoveEducation(edu._id)} className="btn btn-danger">Delete</button>
             </td>
         </tr>
     ))
