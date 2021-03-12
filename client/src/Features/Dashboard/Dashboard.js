@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DashboardActions from './DashboardActions.js';
 import Education from './Education.js'
 import Experience from './Experience.js'
+import DeleteAccount from './DeleteAccount.js'
 import Profile from '../profile/Profile.js';
 import useProfile from '../profile/useProfile.js';
 import Spinner from '../Layout/Spinner.js';
@@ -28,6 +29,7 @@ const Dashboard = () => {
                         <DashboardActions/>
                         <Experience experience={profile.experience}/>
                         <Education education={profile.education}/>
+                        <DeleteAccount />
                     </div>
                 ) : (
                     <div>

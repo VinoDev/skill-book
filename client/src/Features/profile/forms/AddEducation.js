@@ -49,15 +49,16 @@ const AddEducation = () => {
                 <div className="form-group">
                     <input 
                         type="text" 
-                        placeholder="Field Of Study" 
+                        placeholder="* Field Of Study" 
                         name="fieldofstudy" 
+                        required
                         value={fieldofstudy}
                         onChange={e => onChange(e)}
                     />
                 </div>
                 <div className="form-group">
                   <h4>From Date</h4>
-                  <input type="date" name="from" value={from} onChange={e => onChange(e)}/>
+                  <input type="date" name="from" value={from} required onChange={e => onChange(e)}/>
                 </div>
                 <div className="form-group">
                     <p>

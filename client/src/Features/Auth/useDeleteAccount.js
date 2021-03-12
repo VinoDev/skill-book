@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import profileSlice from "../profile/state/profileSlice.js";
+import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
 import fetcher from "../../utils/fetcher.js";
 
@@ -10,47 +11,20 @@ const useDeleteAccount = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { clearProfile, deleteAccount, profileError } = profileSlice.actions;
+    const { clearProfile, profileError } = profileSlice.actions;
+    const { deleteAccount } = authSlice.actions;
 
-    const [ formData, setFormData ] = useState({
-        company: '',
-        title: '',
-        location: '',
-        from: '',
-        to: '',
-        current: false,
-        description: ''
-    })
-
-    const [ toDateDisbled, toggleDisabled ] = useState(false);
-    
-    const onChange = e => setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-    })
-
-    const toggleCurrent = e => {
-        setFormData({
-            ...formData,
-            current: !formData.current
-        })
-        toggleDisabled(!toDateDisbled);
-    }
-
-    const onSubmit = e => {
-        e.preventDefault()
-        AddExperience(formData)
-    }
-
-    const DeleteAccount = async (id) => {
+    const handleDeleteAccount = async () => {
 
         if(window.confirm('Are you sure? This can NOT be undone!')){
 
             try {
-                const res = await fetcher(`/api/profile`, {
+                const res = await fetcher(`/api/user`, {
                     method: 'DELETE'         
                 })
+                console.log(res);
                 const resJson = await res.json();
+                console.log(resJson);
                 if(res.status !== 200) {
                     dispatch(profileError({
                         msg: resJson.errors, 
@@ -58,12 +32,13 @@ const useDeleteAccount = () => {
                     }))
                 } else {
                     dispatch(clearProfile()); 
-                    localStorage.removeItem('token')  
                     dispatch(deleteAccount());  
+                    localStorage.removeItem('token')  
                     createAlert('Your account has been permanantly deleted')
-                    history.push('/dashboard')         
+                    history.push('/login')         
                 }
             } catch (error) {
+                console.log(error);
                 if(error.response.data.errors){
                     error.forEach(err => {
                         createAlert(err.msg, 'danger');
@@ -78,7 +53,7 @@ const useDeleteAccount = () => {
         }
     }
   
-    return [ onSubmit, onChange, toggleCurrent, formData ];
+    return [ handleDeleteAccount ];
 }
 
 export default useDeleteAccount;

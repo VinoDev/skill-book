@@ -55,7 +55,7 @@ const Login = () => {
             </form>
             <p className="my-1">
               Dont have an account? 
-              <Link to="/login"> Login</Link>
+              <Link to="/register"> Register</Link>
             </p>            
         </div>
     )

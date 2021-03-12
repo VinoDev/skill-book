@@ -3,7 +3,7 @@ import validator from 'express-validator';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import auth from '../../middleware/auth.js';
-import { User, Profile } from '../../models/index.js';
+import { User, Profile, Post } from '../../models/index.js';
 import { jwtSign, errorHandler } from '../../utils.js';
 const { check, validationResult } = validator;
 const router = express.Router();
@@ -75,6 +75,9 @@ router.post(
 // @access  Private
 router.delete('/', auth, async(req, res) => {
     try {
+
+        await Post.deleteMany({ user: req.user.id })
+
         const user = await User.findById(req.user.id).select('-password');
 
         if(!user){
