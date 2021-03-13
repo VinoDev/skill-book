@@ -4,6 +4,8 @@ import Spinner from '../Layout/Spinner.js'
 import useFindProfile from './hooks/useFindProfile.js'
 import ProfileTop from './ProfileTop.js'
 import ProfileAbout from './ProfileAbout.js';
+import ProfileExperience from './ProfileExperience.js'
+import ProfileEducation from './ProfileEducation.js'
 
 const Profile = ({ match }) => {
 
@@ -26,7 +28,50 @@ const Profile = ({ match }) => {
                 <div className="profile-grid my-1">
                     <ProfileTop profile={profile}/>
                     <ProfileAbout profile={profile}/>
-                </div>
+                    <div className="profile-exp bg-white p-2">
+                        <h2 className="text-primary">Experience</h2>
+                        {
+                            profile.experience.length > 0 ? (
+                                <div>
+                                    {
+                                        profile.experience.map(experience => (
+                                            <ProfileExperience 
+                                                key={experience._id}
+                                                experience={experience}
+                                            />
+                                        ))
+                                    }
+                                </div>
+                            ) : (
+                                <h4>
+                                    No experience credentials
+                                </h4>
+                            )
+                        }
+                    </div>
+
+                    <div className="profile-edu bg-white p-2">
+                        <h2 className="text-primary">Education</h2>
+                        {
+                            profile.education.length > 0 ? (
+                                <div>
+                                    {
+                                        profile.education.map(edu => (
+                                            <ProfileEducation
+                                                key={edu._id}
+                                                education={edu}
+                                            />
+                                        ))
+                                    }
+                                </div>
+                            ) : (
+                                <h4>
+                                    No education credentials
+                                </h4>
+                            )
+                        }
+                    </div>
+                </div>  
             </div>
         )    
     }
