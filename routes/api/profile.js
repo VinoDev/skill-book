@@ -55,11 +55,11 @@ router.post(
                     { user: req.user.id },
                     { $set: profileObject },
                     { new: true }
-                )
+                ).populate('user', ['name', 'avatar']);
                 return res.json(updatedProfile);
             }
 
-            const newProfile = new Profile(profileObject);
+            const newProfile = new Profile(profileObject).populate('user', ['name', 'avatar']);;
             await newProfile.save();
             res.json(newProfile);            
 
