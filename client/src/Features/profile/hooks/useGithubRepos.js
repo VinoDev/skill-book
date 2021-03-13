@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import profileSlice from "../state/profileSlice.js";
 import fetcher from "../../../utils/fetcher.js";
@@ -5,9 +6,13 @@ import fetcher from "../../../utils/fetcher.js";
 const useGithubRepos = () => {
 
     const dispatch = useDispatch();
-    const { profile, loading } = useSelector((state) => state.profile);
+    const { profile, repos, loading } = useSelector((state) => state.profile);
 
-    const { GET_REPOS, CLEAR_PROFILE, PROFILE_ERROR } = profileSlice.actions;
+    useEffect(()=>{
+        getGithubRepos(profile.githubusername)
+    },[profile.githubusername])
+
+    const { GET_REPOS, PROFILE_ERROR } = profileSlice.actions;
     const getGithubRepos = async (username) => {
 
         try {
@@ -29,7 +34,7 @@ const useGithubRepos = () => {
         }
     }
 
-    return [ getGithubRepos ];
+    return [ profile, repos, loading ];
 }
 
 export default useGithubRepos;

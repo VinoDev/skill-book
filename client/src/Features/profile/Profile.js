@@ -6,6 +6,7 @@ import ProfileTop from './ProfileTop.js'
 import ProfileAbout from './ProfileAbout.js';
 import ProfileExperience from './ProfileExperience.js'
 import ProfileEducation from './ProfileEducation.js'
+import ProfileGithub from './ProfileGithub.js';
 
 const Profile = ({ match }) => {
 
@@ -71,6 +72,10 @@ const Profile = ({ match }) => {
                             )
                         }
                     </div>
+
+                    {profile.githubusername && (
+                        <ProfileGithub/>
+                    )}
                 </div>  
             </div>
         )    
