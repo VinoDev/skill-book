@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import profileSlice from "../../state/profileSlice.js";
 import useAlert from "../../../Alert/hooks/useAlert.js";
@@ -11,7 +11,6 @@ const useCreateProfile = () => {
     const createAlert = useAlert();
     const dispatch = useDispatch();
     const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
-    const { profile, loading } = useSelector((state) => state.profile);
 
     const [ formData, setFormData ] = useState({
         company: '',

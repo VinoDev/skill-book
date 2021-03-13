@@ -4,7 +4,6 @@ import DashboardActions from './DashboardActions.js';
 import Education from './Education.js'
 import Experience from './Experience.js'
 import DeleteAccount from './DeleteAccount.js'
-import Profile from '../profile/Profile.js';
 import useProfile from '../profile/hooks/useProfile.js';
 import Spinner from '../Layout/Spinner.js';
 

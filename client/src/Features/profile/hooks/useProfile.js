@@ -11,7 +11,7 @@ const useProfile = () => {
         if(!profile){
             getCurrentProfile()   
         }
-    }, [])
+    }, [profile])
 
     const dispatch = useDispatch();
     const { GET_PROFILE, PROFILE_ERROR, LOADING_DATA } = profileSlice.actions;

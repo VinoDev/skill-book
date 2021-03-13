@@ -15,7 +15,7 @@ const useAllProfile = () => {
 
     const dispatch = useDispatch();
 
-    const { GET_ALL_PROFILES, CLEAR_PROFILE, LOADING_DATA, PROFILE_ERROR } = profileSlice.actions;
+    const { GET_ALL_PROFILES, LOADING_DATA, PROFILE_ERROR } = profileSlice.actions;
     const getAllProfiles = async () => {
         try {
             dispatch(LOADING_DATA());
