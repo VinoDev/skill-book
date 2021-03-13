@@ -1,17 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import profileSlice from "./state/profileSlice.js";
-import useAlert from "../Alert/useAlert.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../../state/profileSlice.js";
+import useAlert from "../../../Alert/hooks/useAlert.js";
+import fetcher from "../../../../utils/fetcher.js";
 
-const useCreateProfile = () => {
+const useEditProfile = () => {
 
+    const { profile, loading } = useSelector((state) => state.profile);
+
+    useEffect(() => {
+        setFormData({
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            status: loading || !profile.status ? '' : profile.status,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
+            githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+            bio: loading || !profile.bio ? '' : profile.bio,
+            twitter: loading || !profile.twitter ? '' : profile.twitter,
+            facebook: loading || !profile.facebook ? '' : profile.facebook,
+            linkedin: loading || !profile.linkedin ? '' : profile.linkedin,
+            youtube: loading || !profile.youtube ? '' : profile.youtube,
+            instagram: loading || !profile.instagram ? '' : profile.instagram,
+        })   
+    }, [loading])
+    
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
-    const { profile, loading } = useSelector((state) => state.profile);
 
     const [ formData, setFormData ] = useState({
         company: '',
@@ -27,7 +44,9 @@ const useCreateProfile = () => {
         youtube: '',
         instagram: ''
     })
-    
+
+    const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
+
     const onChange = e => setFormData({
         ...formData,
         [e.target.name]: e.target.value
@@ -35,10 +54,10 @@ const useCreateProfile = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        createProfile(formData)
+        editProfile(formData)
     }
 
-    const createProfile = async (formData) => {
+    const editProfile = async (formData) => {
         try {
             const res = await fetcher('/api/profile', {
                 method: 'POST',
@@ -55,7 +74,7 @@ const useCreateProfile = () => {
                 }))
             } else {
                 dispatch(GET_PROFILE(resJson));   
-                createAlert('Profile Created', 'success')
+                createAlert('Profile Updated', 'success')
                 history.push('/dashboard')         
             }
         } catch (error) {
@@ -75,4 +94,4 @@ const useCreateProfile = () => {
     return [ onSubmit, onChange, formData ];
 }
 
-export default useCreateProfile;
+export default useEditProfile;

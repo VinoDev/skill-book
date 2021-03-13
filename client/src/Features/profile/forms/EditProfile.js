@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useEditProfile from '../useEditProfile.js';
+import useEditProfile from './hooks/useEditProfile.js';
 
 const EditProfile = () => {      
 

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import authSlice from "./state/authSlice.js";
-import useAlert from "../Alert/useAlert.js";
-import useLoadUser from '../Auth/useLoadUser.js';
+import authSlice from "../state/authSlice.js";
+import useAlert from "../../Alert/hooks/useAlert.js";
+import useLoadUser from '../../Auth/hooks/useLoadUser.js';
 
 const { REGISTER_SUCCESS, REGISTER_FAIL } = authSlice.actions;
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import profileSlice from "../profile/state/profileSlice.js";
-import authSlice from "./state/authSlice.js";
-import useAlert from "../Alert/useAlert.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../../profile/state/profileSlice.js";
+import authSlice from "../state/authSlice.js";
+import useAlert from "../../Alert/hooks/useAlert.js";
+import fetcher from "../../../utils/fetcher.js";
 
 const useDeleteAccount = () => {
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import useLogin from "../Auth/useLogin.js";
+import useLogin from "../Auth/hooks/useLogin.js";
 
 const Login = () => {
 

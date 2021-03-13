@@ -1,5 +1,5 @@
 import Moment from 'react-moment';
-import useRemoveExperience from '../profile/useRemoveExperience.js'
+import useRemoveExperience from './hooks/useRemoveExperience'
 
 const Experience = ({ experience }) => {
 

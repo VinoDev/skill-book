@@ -1,5 +1,5 @@
 import Moment from 'react-moment';
-import useRemoveEducation from '../profile/useRemoveEducation.js'
+import useRemoveEducation from './hooks/useRemoveEducation'
 
 const Education = ({ education }) => {
 

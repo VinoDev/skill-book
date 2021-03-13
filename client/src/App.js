@@ -6,7 +6,7 @@ import Landing from './Features/Layout/Landing.js';
 import Register from './Features/Auth/Register.js';
 import Login from './Features/Auth/Login.js';
 import AlertGroup from './Features/Alert/AlertGroup.js';
-import useLoadUser from './Features/Auth/useLoadUser.js';
+import useLoadUser from './Features/Auth/hooks/useLoadUser.js';
 import Dashboard from './Features/Dashboard/Dashboard.js';
 import CreateProfile from './Features/profile/forms/CreateProfile.js'
 import EditProfile from './Features/profile/forms/EditProfile.js'

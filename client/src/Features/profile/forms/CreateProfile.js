@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useCreateProfile from '../useCreateProfile.js';
+import useCreateProfile from './hooks/useCreateProfile.js';
 
 const CreateProfile = () => {        
 

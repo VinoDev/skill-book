@@ -1,19 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import profileSlice from "./state/profileSlice.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../state/profileSlice.js";
+import fetcher from "../../../utils/fetcher.js";
 
-const useAllProfile = () => {
+const useFindProfile = () => {
 
     const dispatch = useDispatch();
     const { profile, loading } = useSelector((state) => state.profile);
 
-    const { GET_ALL_PROFILES, CLEAR_PROFILE, PROFILE_ERROR } = profileSlice.actions;
-    const getAllProfiles = async () => {
-
-        dispatch(CLEAR_PROFILE());
+    const { GET_PROFILE, CLEAR_PROFILE, PROFILE_ERROR } = profileSlice.actions;
+    const getProfileById = async (userId) => {
 
         try {
-            const res = await fetcher('/api/profile')
+            const res = await fetcher(`/api/profile/${userId}`)
             const resJson = await res.json();
             if(res.status !== 200) {
                 dispatch(PROFILE_ERROR({
@@ -21,7 +19,7 @@ const useAllProfile = () => {
                     status: res.status
                 }))
             } else {
-                dispatch(GET_ALL_PROFILES(resJson));            
+                dispatch(GET_PROFILE(resJson));            
             }
         } catch (error) {
             dispatch(PROFILE_ERROR({
@@ -31,7 +29,7 @@ const useAllProfile = () => {
         }
     }
 
-    return [ getAllProfiles ];
+    return [ getProfileById ];
 }
 
-export default useAllProfile;
+export default useFindProfile;

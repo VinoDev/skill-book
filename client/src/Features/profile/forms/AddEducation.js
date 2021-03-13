@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useAddEducation from "../useAddEducation.js";
+import useAddEducation from "./hooks/useAddEducation.js";
 
 const AddEducation = () => {
     

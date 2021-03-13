@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import authSlice from "./state/authSlice.js";
-import profileSlice from "../profile/state/profileSlice.js";
+import authSlice from "../state/authSlice.js";
+import profileSlice from "../../profile/state/profileSlice.js";
 
 const useLogout = () => {
   

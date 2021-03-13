@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import profileSlice from "./state/profileSlice.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../state/profileSlice.js";
+import fetcher from "../../../utils/fetcher.js";
 
 const useGithubRepos = () => {
 

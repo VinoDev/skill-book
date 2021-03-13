@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
-import alertSlice from "./state/alertSlice.js";
+import alertSlice from "../state/alertSlice.js";
 
 const { SET_ALERT, REMOVE_ALERT } = alertSlice.actions;
 

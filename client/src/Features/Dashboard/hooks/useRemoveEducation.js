@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import profileSlice from "./state/profileSlice.js";
-import useAlert from "../Alert/useAlert.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../../profile/state/profileSlice.js";
+import useAlert from "../../Alert/hooks/useAlert.js";
+import fetcher from "../../../utils/fetcher.js";
 
-const useRemoveExperience = () => {
+const useRemoveEducation = () => {
 
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { REMOVE_EXPERIENCE, PROFILE_ERROR } = profileSlice.actions;
+    const { REMOVE_EDUCATION, PROFILE_ERROR } = profileSlice.actions;
 
-    const handleRemoveExperience = async (id) => {
+    const handleRemoveEducation = async (id) => {
         try {
-            const res = await fetcher(`/api/profile/experience/${id}`, {
+            const res = await fetcher(`/api/profile/education/${id}`, {
                 method: 'PUT'         
             })
             const resJson = await res.json();
@@ -24,8 +24,8 @@ const useRemoveExperience = () => {
                     status: res.status
                 }))
             } else {
-                dispatch(REMOVE_EXPERIENCE(resJson));   
-                createAlert('Experience Removed', 'success')
+                dispatch(REMOVE_EDUCATION(resJson));   
+                createAlert('Education Removed', 'success')
                 history.push('/dashboard')         
             }
         } catch (error) {
@@ -42,7 +42,7 @@ const useRemoveExperience = () => {
         }
     }
   
-    return [ handleRemoveExperience ];
+    return [ handleRemoveEducation ];
 }
 
-export default useRemoveExperience;
+export default useRemoveEducation;

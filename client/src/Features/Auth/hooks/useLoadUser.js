@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import authSlice from "./state/authSlice.js";
-import fetcher from "../../utils/fetcher.js";
+import authSlice from "../state/authSlice.js";
+import fetcher from "../../../utils/fetcher.js";
 
 const { USER_LOADED, AUTH_ERROR } = authSlice.actions;
 

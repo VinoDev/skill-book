@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import useLogout from '../Auth/useLogout.js'
+import useLogout from '../Auth/hooks/useLogout.js'
 
 const Navbar = () => {
 

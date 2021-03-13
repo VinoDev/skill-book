@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import profileSlice from "./state/profileSlice.js";
-import useAlert from "../Alert/useAlert.js";
-import fetcher from "../../utils/fetcher.js";
+import profileSlice from "../../state/profileSlice.js";
+import useAlert from "../../../Alert/hooks/useAlert.js";
+import fetcher from "../../../../utils/fetcher.js";
 
-const useAddEducation = () => {
+const useAddExperience = () => {
 
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { ADD_EDUCATION, PROFILE_ERROR } = profileSlice.actions;
+    const { ADD_EXPERIENCE, PROFILE_ERROR } = profileSlice.actions;
 
     const [ formData, setFormData ] = useState({
-        school: '',
-        degree: '',
-        fieldofstudy: '',
+        company: '',
+        title: '',
+        location: '',
         from: '',
         to: '',
         current: false,
@@ -39,12 +39,12 @@ const useAddEducation = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        addEducation(formData)
+        addExperience(formData)
     }
 
-    const addEducation = async (formData) => {
+    const addExperience = async (formData) => {
         try {
-            const res = await fetcher('/api/profile/education', {
+            const res = await fetcher('/api/profile/experience', {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json'
@@ -58,8 +58,8 @@ const useAddEducation = () => {
                     status: res.status
                 }))
             } else {
-                dispatch(ADD_EDUCATION(resJson));   
-                createAlert('Education Added', 'success')
+                dispatch(ADD_EXPERIENCE(resJson));   
+                createAlert('Experience Added', 'success')
                 history.push('/dashboard')         
             }
         } catch (error) {
@@ -79,4 +79,4 @@ const useAddEducation = () => {
     return [ onSubmit, onChange, toggleCurrent, formData ];
 }
 
-export default useAddEducation;
+export default useAddExperience;
