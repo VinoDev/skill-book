@@ -48,6 +48,9 @@ const profileSlice = createSlice({
     GET_REPOS: (state, action) => {
       state.repos = action.payload;
       state.loading = false;
+    },
+    LOADING_DATA: (state) => {
+      state.loading = true
     }
   },
 });

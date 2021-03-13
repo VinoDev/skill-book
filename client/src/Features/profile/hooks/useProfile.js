@@ -5,40 +5,20 @@ import fetcher from "../../../utils/fetcher.js";
 
 const useProfile = () => {
 
+    const { profile, loading } = useSelector((state) => state.profile);
+
     useEffect(()=>{
-        getCurrentProfile()   
+        if(!profile){
+            getCurrentProfile()   
+        }
     }, [])
 
     const dispatch = useDispatch();
-    const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
-    const { profile, loading } = useSelector((state) => state.profile);
-
-    const { GET_ALL_PROFILES, CLEAR_PROFILE } = profileSlice.actions;
-    const getProfiles = async () => {
-
-        dispatch(CLEAR_PROFILE());
-
-        try {
-            const res = await fetcher('/api/profile')
-            const resJson = await res.json();
-            if(res.status !== 200) {
-                dispatch(PROFILE_ERROR({
-                    msg: resJson.errors, 
-                    status: res.status
-                }))
-            } else {
-                dispatch(GET_ALL_PROFILES(resJson));            
-            }
-        } catch (error) {
-            dispatch(PROFILE_ERROR({
-                msg: error.response.statusText, 
-                status: error.response.status
-            }))
-        }
-    }
+    const { GET_PROFILE, PROFILE_ERROR, LOADING_DATA } = profileSlice.actions;
 
     const getCurrentProfile = async () => {
         try {
+            dispatch(LOADING_DATA());
             const res = await fetcher('/api/profile/me')
             const resJson = await res.json();
             if(res.status !== 200) {

@@ -7,16 +7,33 @@ const Navbar = () => {
 
   const authLinks = (
     <ul>
-      <li><NavLink to='/dashboard'><span>Dashboard</span></NavLink></li>
-      <li><a onClick={logoutUser} href="/">logout</a></li>
+      <li>
+        <NavLink to='/profiles'>
+          <span>Professionals</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to='/dashboard'>
+          <span>Dashboard</span>
+        </NavLink>
+      </li>
+      <li>
+        <a onClick={logoutUser} href="/">logout</a>
+      </li>
     </ul>   
   )
 
   const guestLinks = (
     <ul>
-      <li><NavLink to="/profiles">Professionals</NavLink></li>
-      <li><NavLink to="/register">Register</NavLink></li>
-      <li><NavLink to="/login">Login</NavLink></li>
+      <li>
+        <NavLink to="/profiles">Professionals</NavLink>
+      </li>
+      <li>
+        <NavLink to="/register">Register</NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>
+      </li>
     </ul>
   )
 
