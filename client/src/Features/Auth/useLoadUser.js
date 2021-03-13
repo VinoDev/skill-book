@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import authSlice from "./state/authSlice.js";
 import fetcher from "../../utils/fetcher.js";
 
-const { userLoaded, authError } = authSlice.actions;
+const { USER_LOADED, AUTH_ERROR } = authSlice.actions;
 
 const useLoadUser = () => {
     const dispatch = useDispatch();
@@ -14,14 +14,14 @@ const useLoadUser = () => {
             if(res.status !== 200) {
                 console.log("loadUser failed");
                 localStorage.removeItem('token');
-                dispatch(authError());
+                dispatch(AUTH_ERROR());
             } else {
-                dispatch(userLoaded(resJson)); 
+                dispatch(USER_LOADED(resJson)); 
             }
         } catch (error) {
             console.log("loadUser failed");
             localStorage.removeItem('token');
-            dispatch(authError());
+            dispatch(AUTH_ERROR());
         }
     }
 

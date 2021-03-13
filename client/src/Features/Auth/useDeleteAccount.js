@@ -11,8 +11,8 @@ const useDeleteAccount = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { clearProfile, profileError } = profileSlice.actions;
-    const { deleteAccount } = authSlice.actions;
+    const { CLEAR_PROFILE, PROFILE_ERROR } = profileSlice.actions;
+    const { DELETE_ACCOUNT } = authSlice.actions;
 
     const handleDeleteAccount = async () => {
 
@@ -26,13 +26,13 @@ const useDeleteAccount = () => {
                 const resJson = await res.json();
                 console.log(resJson);
                 if(res.status !== 200) {
-                    dispatch(profileError({
+                    dispatch(PROFILE_ERROR({
                         msg: resJson.errors, 
                         status: res.status
                     }))
                 } else {
-                    dispatch(clearProfile()); 
-                    dispatch(deleteAccount());  
+                    dispatch(CLEAR_PROFILE()); 
+                    dispatch(DELETE_ACCOUNT());  
                     localStorage.removeItem('token')  
                     createAlert('Your account has been permanantly deleted')
                     history.push('/login')         
@@ -45,7 +45,7 @@ const useDeleteAccount = () => {
                     });
                 }
 
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: error.response.statusText, 
                     status: error.response.status
                 }))

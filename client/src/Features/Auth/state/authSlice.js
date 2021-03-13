@@ -12,46 +12,46 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
-    registerSuccess: (state, action) => {
+    REGISTER_SUCCESS: (state, action) => {
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.isLoading = false;
     },
-    registerFail: (state, action) => {
+    REGISTER_FAIL: (state, action) => {
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
     },
-    userLoaded: (state, action) => {
+    USER_LOADED: (state, action) => {
       state.isAuthenticated = true;
       state.loading = false;
       state.user = action.payload;
     },
-    authError: (state, action) => {
+    AUTH_ERROR: (state, action) => {
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
     },
-    loginSuccess: (state, action) => {
+    LOGIN_SUCCESS: (state, action) => {
       state.token = action.payload.token;
       state.isAuthenticated = true;
       state.loading = false;
     },
-    loginFailed: (state, action) => {
+    LOGIN_FAILED: (state, action) => {
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
     },
-    logout: (state, action) => {
+    LOGOUT: (state, action) => {
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
     },
-    deleteAccount: (state, action) => {
+    DELETE_ACCOUNT: (state, action) => {
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;

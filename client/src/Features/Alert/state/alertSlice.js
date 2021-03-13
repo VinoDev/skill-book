@@ -8,10 +8,10 @@ const alertSlice = createSlice({
   name: "alert",
   initialState: initialState,
   reducers: {
-    setAlert: (state, action) => {
+    SET_ALERT: (state, action) => {
       state.alerts = [...state.alerts, action.payload]
     },
-    removeAlert: (state, action) => {
+    REMOVE_ALERT: (state, action) => {
       state.alerts = state.alerts.filter(alert => alert.id !== action.payload)
     }   
   },

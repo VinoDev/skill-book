@@ -10,7 +10,7 @@ const useCreateProfile = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { getProfile, profileError } = profileSlice.actions;
+    const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
     const { profile, loading } = useSelector((state) => state.profile);
 
     const [ formData, setFormData ] = useState({
@@ -49,12 +49,12 @@ const useCreateProfile = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(getProfile(resJson));   
+                dispatch(GET_PROFILE(resJson));   
                 createAlert('Profile Created', 'success')
                 history.push('/dashboard')         
             }
@@ -65,7 +65,7 @@ const useCreateProfile = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))

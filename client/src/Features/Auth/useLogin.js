@@ -3,7 +3,7 @@ import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
 import useLoadUser from '../Auth/useLoadUser.js';
 
-const { loginSuccess, loginFailed, logout } = authSlice.actions;
+const { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } = authSlice.actions;
 
 const useLogin = () => {
     const dispatch = useDispatch();
@@ -17,12 +17,12 @@ const useLogin = () => {
     }
 
     const loginFailRemoveToken = () => {
-        dispatch(loginFailed());
+        dispatch(LOGIN_FAILED());
         localStorage.removeItem('token')  
     }
 
     const loginAndSaveToken = (payload) => {
-        dispatch(loginSuccess(payload));
+        dispatch(LOGIN_SUCCESS(payload));
         localStorage.setItem('token', payload.token)
     }
 
@@ -52,7 +52,7 @@ const useLogin = () => {
     }
 
     const logoutUser = () => {
-        dispatch(logout());
+        dispatch(LOGOUT());
         localStorage.removeItem('token')  
         console.log("User logout");
     }

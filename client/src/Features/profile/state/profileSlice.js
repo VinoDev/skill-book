@@ -12,33 +12,41 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: initialState,
   reducers: {
-    getProfile: (state, action) => {
+    GET_PROFILE: (state, action) => {
       state.profile = action.payload;
       state.loading = false;
     },
-    profileError: (state, action) => {
+    PROFILE_ERROR: (state, action) => {
       state.errors = action.payload;
       state.loading = false;
     },
-    clearProfile: (state, action) => {
+    CLEAR_PROFILE: (state, action) => {
       state.profile = null;
       state.repos = [];
       state.loading = false;
     },
-    addExperience: (state, action) => {
+    ADD_EXPERIENCE: (state, action) => {
       state.profile = action.payload;
       state.loading = false;    
     },
-    addEducation: (state, action) => {
+    ADD_EDUCATION: (state, action) => {
       state.profile = action.payload;
       state.loading = false;    
     },
-    removeExperience: (state, action) => {
+    REMOVE_EXPERIENCE: (state, action) => {
       state.profile = action.payload;
       state.loading = false;
     },
-    removeEducation: (state, action) => {
+    REMOVE_EDUCATION: (state, action) => {
       state.profile = action.payload;
+      state.loading = false;
+    },
+    GET_ALL_PROFILES: (state, action) => {
+      state.profiles = action.payload;
+      state.loading = false;
+    },
+    GET_REPOS: (state, action) => {
+      state.repos = action.payload;
       state.loading = false;
     }
   },

@@ -10,7 +10,7 @@ const useRemoveEducation = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { removeEducation, profileError } = profileSlice.actions;
+    const { REMOVE_EDUCATION, PROFILE_ERROR } = profileSlice.actions;
 
     const handleRemoveEducation = async (id) => {
         try {
@@ -19,12 +19,12 @@ const useRemoveEducation = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(removeEducation(resJson));   
+                dispatch(REMOVE_EDUCATION(resJson));   
                 createAlert('Education Removed', 'success')
                 history.push('/dashboard')         
             }
@@ -35,7 +35,7 @@ const useRemoveEducation = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))

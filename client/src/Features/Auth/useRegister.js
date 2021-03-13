@@ -3,7 +3,7 @@ import authSlice from "./state/authSlice.js";
 import useAlert from "../Alert/useAlert.js";
 import useLoadUser from '../Auth/useLoadUser.js';
 
-const { registerSuccess, registerFail } = authSlice.actions;
+const { REGISTER_SUCCESS, REGISTER_FAIL } = authSlice.actions;
 
 const useRegister = () => {
     const dispatch = useDispatch();
@@ -17,12 +17,12 @@ const useRegister = () => {
     }
 
     const registerFailRemoveToken = () => {
-        dispatch(registerFail());
+        dispatch(REGISTER_FAIL());
         localStorage.removeItem('token')  
     }
 
     const registerAndSaveToken = (payload) => {
-        dispatch(registerSuccess(payload));
+        dispatch(REGISTER_SUCCESS(payload));
         localStorage.setItem('token', payload.token)
     }
 

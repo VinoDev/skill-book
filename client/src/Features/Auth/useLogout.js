@@ -6,12 +6,12 @@ const useLogout = () => {
   
     const dispatch = useDispatch();
     const { isAuthenticated, loading } = useSelector((state) => state.auth);
-    const { logout } = authSlice.actions;
-    const { clearProfile } = profileSlice.actions;
+    const { LOGOUT } = authSlice.actions;
+    const { CLEAR_PROFILE } = profileSlice.actions;
 
     const logoutUser = () => {
-      dispatch(logout());
-      dispatch(clearProfile());
+      dispatch(LOGOUT());
+      dispatch(CLEAR_PROFILE());
       localStorage.removeItem('token');
       console.log("User logout");
     }

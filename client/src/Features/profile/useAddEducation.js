@@ -10,7 +10,7 @@ const useAddEducation = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { addEducation, profileError } = profileSlice.actions;
+    const { ADD_EDUCATION, PROFILE_ERROR } = profileSlice.actions;
 
     const [ formData, setFormData ] = useState({
         school: '',
@@ -39,10 +39,10 @@ const useAddEducation = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        AddEducation(formData)
+        addEducation(formData)
     }
 
-    const AddEducation = async (formData) => {
+    const addEducation = async (formData) => {
         try {
             const res = await fetcher('/api/profile/education', {
                 method: 'PUT',
@@ -53,12 +53,12 @@ const useAddEducation = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(addEducation(resJson));   
+                dispatch(ADD_EDUCATION(resJson));   
                 createAlert('Education Added', 'success')
                 history.push('/dashboard')         
             }
@@ -69,7 +69,7 @@ const useAddEducation = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))

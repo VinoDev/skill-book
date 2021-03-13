@@ -45,7 +45,7 @@ const useEditProfile = () => {
         instagram: ''
     })
 
-    const { getProfile, profileError } = profileSlice.actions;
+    const { GET_PROFILE, PROFILE_ERROR } = profileSlice.actions;
 
     const onChange = e => setFormData({
         ...formData,
@@ -68,12 +68,12 @@ const useEditProfile = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(getProfile(resJson));   
+                dispatch(GET_PROFILE(resJson));   
                 createAlert('Profile Updated', 'success')
                 history.push('/dashboard')         
             }
@@ -84,7 +84,7 @@ const useEditProfile = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))

@@ -10,7 +10,7 @@ const useAddExperience = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { addExperience, profileError } = profileSlice.actions;
+    const { ADD_EXPERIENCE, PROFILE_ERROR } = profileSlice.actions;
 
     const [ formData, setFormData ] = useState({
         company: '',
@@ -39,10 +39,10 @@ const useAddExperience = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        AddExperience(formData)
+        addExperience(formData)
     }
 
-    const AddExperience = async (formData) => {
+    const addExperience = async (formData) => {
         try {
             const res = await fetcher('/api/profile/experience', {
                 method: 'PUT',
@@ -53,12 +53,12 @@ const useAddExperience = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(addExperience(resJson));   
+                dispatch(ADD_EXPERIENCE(resJson));   
                 createAlert('Experience Added', 'success')
                 history.push('/dashboard')         
             }
@@ -69,7 +69,7 @@ const useAddExperience = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))

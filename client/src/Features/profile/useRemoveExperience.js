@@ -10,7 +10,7 @@ const useRemoveExperience = () => {
     const history = useHistory();
     const createAlert = useAlert();
     const dispatch = useDispatch();
-    const { removeExperience, profileError } = profileSlice.actions;
+    const { REMOVE_EXPERIENCE, PROFILE_ERROR } = profileSlice.actions;
 
     const handleRemoveExperience = async (id) => {
         try {
@@ -19,12 +19,12 @@ const useRemoveExperience = () => {
             })
             const resJson = await res.json();
             if(res.status !== 200) {
-                dispatch(profileError({
+                dispatch(PROFILE_ERROR({
                     msg: resJson.errors, 
                     status: res.status
                 }))
             } else {
-                dispatch(removeExperience(resJson));   
+                dispatch(REMOVE_EXPERIENCE(resJson));   
                 createAlert('Experience Removed', 'success')
                 history.push('/dashboard')         
             }
@@ -35,7 +35,7 @@ const useRemoveExperience = () => {
                 });
             }
 
-            dispatch(profileError({
+            dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
             }))
