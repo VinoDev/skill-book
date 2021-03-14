@@ -19,6 +19,7 @@ const profileSlice = createSlice({
     PROFILE_ERROR: (state, action) => {
       state.errors = action.payload;
       state.loading = false;
+      state.profile = null;
     },
     CLEAR_PROFILE: (state, action) => {
       state.profile = null;
