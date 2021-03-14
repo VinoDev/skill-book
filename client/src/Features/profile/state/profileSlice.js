@@ -27,19 +27,19 @@ const profileSlice = createSlice({
       state.loading = false;
     },
     ADD_EXPERIENCE: (state, action) => {
-      state.profile = action.payload;
+      state.profile.experience = action.payload.experience;
       state.loading = false;    
     },
     ADD_EDUCATION: (state, action) => {
-      state.profile = action.payload;
+      state.profile.education = action.payload.education;
       state.loading = false;    
     },
     REMOVE_EXPERIENCE: (state, action) => {
-      state.profile = action.payload;
+      state.profile.experience = action.payload.experience;
       state.loading = false;
     },
     REMOVE_EDUCATION: (state, action) => {
-      state.profile = action.payload;
+      state.profile.education = action.payload.education;
       state.loading = false;
     },
     GET_ALL_PROFILES: (state, action) => {
