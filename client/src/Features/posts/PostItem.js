@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Moment from 'react-moment';
-import authSlice from '../Auth/state/authSlice';
+import useLike from './hooks/useLike.js'
 
-const PostItem = ({
-    post: {_id, text, name, avatar, user, likes, comments, date}
-}) => {
+const PostItem = ({post}) => {
 
+    const [ addLike, removeLike ] = useLike();
     const auth = useSelector((state) => state.auth);
 
     return (
@@ -15,35 +14,35 @@ const PostItem = ({
                 <a href="profile.html">
                     <img
                         className="round-img"
-                        src={avatar}
+                        src={post.avatar}
                         alt=""
                     />
-                    <h4>{name}</h4>
+                    <h4>{post.name}</h4>
                 </a>
             </div>
             <div>
                 <p className="my-1">
-                    {text}
+                    {post.text}
                 </p>
                  <p className="post-date">
-                    Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
+                    Posted on <Moment format="YYYY/MM/DD">{post.date}</Moment>
                 </p>
-                <button type="button" className="btn btn-light">
+                <button onClick={() => addLike(post._id)} type="button" className="btn btn-light">
                     <i className="fas fa-thumbs-up"></i>{' '}
-                    {likes.length > 0 && (
-                        <span>{likes.length}</span>
+                    {post.likes.length > 0 && (
+                        <span>{post.likes.length}</span>
                     )}
                 </button>
-                <button type="button" className="btn btn-light">
+                <button onClick={() => removeLike(post._id)} type="button" className="btn btn-light">
                     <i className="fas fa-thumbs-down"></i>
                 </button>
-                <Link to={`/post/${_id}`} className="btn btn-primary">
+                <Link to={`/post/${post._id}`} className="btn btn-primary">
                     Discussion{' '}
-                    {comments.length > 0 && (
-                        <span className='comment-count'>{comments.length}</span>
+                    {post.comments.length > 0 && (
+                        <span className='comment-count'>{post.comments.length}</span>
                     )}
                 </Link>
-                {!authSlice.loading && user === auth.user._id && (
+                {!auth.loading && post.user === auth.user._id && (
                     <button      
                         type="button"
                         className="btn btn-danger"

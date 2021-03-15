@@ -16,7 +16,7 @@ const usePost = () => {
     const getPosts = async () => {
 
         try {
-            // dispatch(LOADING_POSTS())
+            dispatch(LOADING_POSTS())
             const res = await fetcher(`/api/post`)
             const resJson = await res.json();
             if(res.status !== 200) {

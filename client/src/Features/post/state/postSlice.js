@@ -20,7 +20,17 @@ const postSlice = createSlice({
         state.loading = false;
     },
     LOADING_POSTS: (state) => {
-        state.loading = true
+        state.loading = true;
+    },
+    UPDATE_LIKES: (state, action) => {
+        state.posts = state.posts.map(post => {
+            if(post._id === action.payload.postId){
+                return {...post, likes: action.payload.resJson}
+            } else {
+                return post
+            }
+        });
+        state.loading = false;
     }
   },
 });

@@ -18,9 +18,13 @@ const Posts = () => {
                 {/** PostForm */}
                 <div className="posts">
                     {
-                        posts.map(post => (
-                            <PostItem key={post._id} post={post} />
-                        ))
+                        posts.map(post => {
+                            if(post !== null){
+                                return (
+                                    <PostItem key={post._id} post={post} />
+                                )
+                            }
+                        })
                     }
                 </div>
             </div>
