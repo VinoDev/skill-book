@@ -15,6 +15,7 @@ import AddEducation from './Features/profile/forms/AddEducation.js'
 import Profiles from './Features/profiles/Profiles.js';
 import Profile from './Features/profile/Profile.js'
 import Posts from './Features/posts/Posts.js'
+import Post from './Features/post/Post.js';
 import PrivateRoute from './utils/PrivateRoute.js';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <PrivateRoute path="/add-experience" component={AddExperience} exact={true}></PrivateRoute>
           <PrivateRoute path="/add-education" component={AddEducation} exact={true}></PrivateRoute>
           <PrivateRoute path="/posts" component={Posts} exact={true}></PrivateRoute>
+          <PrivateRoute path="/posts/:id" component={Post} exact={true}></PrivateRoute>
         </Switch>
       </Fragment>
     </Router>
