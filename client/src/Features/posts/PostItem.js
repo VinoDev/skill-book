@@ -5,7 +5,7 @@ import useLike from './hooks/useLike.js'
 
 const PostItem = ({post}) => {
 
-    const [ addLike, removeLike ] = useLike();
+    const [ addLike, removeLike, deletePost ] = useLike();
     const auth = useSelector((state) => state.auth);
 
     return (
@@ -46,6 +46,7 @@ const PostItem = ({post}) => {
                     <button      
                         type="button"
                         className="btn btn-danger"
+                        onClick={() => deletePost(post._id)}
                     >
                     <i className="fas fa-times"></i>
                     </button>

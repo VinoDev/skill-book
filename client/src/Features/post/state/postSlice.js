@@ -31,8 +31,11 @@ const postSlice = createSlice({
             }
         });
         state.loading = false;
-    }
-  },
+    },
+    DELETE_POST: (state, action) => {
+        state.posts = state.posts.filter(post => post._id !== action.payload.postId);
+        state.loading = false;
+    }}
 });
 
 export default postSlice;
