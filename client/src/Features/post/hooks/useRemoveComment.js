@@ -1,25 +1,19 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import postSlice from "../state/postSlice.js";
 import fetcher from "../../../utils/fetcher.js";
 import useAlert from "../../Alert/hooks/useAlert.js"
 
-const useComment = () => {
+const useRemoveComment = () => {
 
     const dispatch = useDispatch();
-    const [ text, setText ] = useState('');
-    const { ADD_COMMENT, COMMENT_ERROR } = postSlice.actions;
+    const { REMOVE_COMMENT, COMMENT_ERROR } = postSlice.actions;
     const createAlert = useAlert();
 
-    const addComment = async ({ postId }) => {
+    const removeComment = async (postId, commentId) => {
 
         try {
-            const res = await fetcher(`/api/post/${postId}/comment`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text })
+            const res = await fetcher(`/api/post/${postId}/comment/${commentId}`, {
+                method: "PUT"
             })
             const resJson = await res.json();
             if(res.status !== 200) {
@@ -28,8 +22,8 @@ const useComment = () => {
                     status: res.status
                 }))
             } else {
-                dispatch(ADD_COMMENT(resJson));
-                createAlert("Comment Added", 'success');            
+                dispatch(REMOVE_COMMENT(commentId));
+                createAlert("Comment Removed");            
             }
         } catch (error) {
             console.log(error);
@@ -40,7 +34,7 @@ const useComment = () => {
         }
     }
 
-    return [ addComment, text, setText ];
+    return removeComment
 }
 
-export default useComment;
+export default useRemoveComment;

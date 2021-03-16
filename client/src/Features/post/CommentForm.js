@@ -2,7 +2,7 @@ import useComment from './hooks/useComent.js'
 
 const CommentForm = (postId) => {
 
-    const [ addComment, removeComment, text, setText ] = useComment();
+    const [ addComment, text, setText ] = useComment();
 
     return (
         <div className="post-form">

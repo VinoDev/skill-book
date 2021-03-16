@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Moment from 'react-moment';
