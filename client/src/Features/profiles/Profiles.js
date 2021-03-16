@@ -1,4 +1,4 @@
-import Spinner from '../Layout/Spinner.js';
+import Spinner from '../layout/Spinner.js';
 import useAllProfiles from './hooks/useAllProfiles.js';
 import ProfileItem from './ProfileItem.js'
 

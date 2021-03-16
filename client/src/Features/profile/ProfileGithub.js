@@ -1,4 +1,4 @@
-import Spinner from '../Layout/Spinner.js'
+import Spinner from '../layout/Spinner.js'
 import useGithubRepos from './hooks/useGithubRepos.js';
 
 const ProfileGithub = () => {

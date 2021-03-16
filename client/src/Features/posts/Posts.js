@@ -1,5 +1,5 @@
 import usePost from './hooks/usePost.js'
-import Spinner from '../Layout/Spinner.js';
+import Spinner from '../layout/Spinner.js';
 import PostItem from './PostItem.js';
 import PostForm from './PostForm.js';
 

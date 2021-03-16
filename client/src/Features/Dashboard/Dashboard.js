@@ -5,7 +5,7 @@ import Education from './Education.js'
 import Experience from './Experience.js'
 import DeleteAccount from './DeleteAccount.js'
 import useProfile from '../profile/hooks/useProfile.js';
-import Spinner from '../Layout/Spinner.js';
+import Spinner from '../layout/Spinner.js';
 
 const Dashboard = () => {        
 
