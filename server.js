@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path'; 
 import connectDB from './db.js';
 import cors from 'cors';
 import { auth, post, profile, user } from './routes/api/index.js';
@@ -11,11 +12,18 @@ app.use(express.json());
 
 app.use(cors());
 
-app.get('/', (req, res) => res.send('API Running'));
 app.use('/api/auth', auth);
 app.use('/api/post', post);
 app.use('/api/profile', profile);
 app.use('/api/user', user);
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 app.listen(port, ()=>{
     console.log(`Server started on port ${port}`)
