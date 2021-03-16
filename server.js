@@ -6,6 +6,7 @@ import { auth, post, profile, user } from './routes/api/index.js';
 
 const app = express();
 const port = process.env.port || 5000;
+const __dirname = path.resolve();
 connectDB();
 
 app.use(express.json());
