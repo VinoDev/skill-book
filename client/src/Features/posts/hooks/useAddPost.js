@@ -11,7 +11,7 @@ const usePost = () => {
     const dispatch = useDispatch();
     const { POST_ERROR, ADD_POST, LOADING_POSTS } = postSlice.actions;
 
-    const addPost = async (formData) => {
+    const addPost = async () => {
 
         try {
             const res = await fetcher(`/api/post`, {
@@ -19,7 +19,7 @@ const usePost = () => {
                 headers: { 
                     'Content-Type': 'application/json'
                 },                
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ text })
             })
             const resJson = await res.json();
             if(res.status !== 200) {

@@ -47,6 +47,18 @@ const postSlice = createSlice({
       LOADING_POST: (state) => {
         state.loading = true;
       },
+      ADD_COMMENT: (state ,action) => {
+        state.post.comments = action.payload;
+        state.loading = false;
+      },
+      REMOVE_COMMENT: (state, action) => {
+        state.post.comments = state.post.comments.filter(comment => comment._id !== action.payload);
+        state.loading = false;
+      },
+      COMMENT_ERROR: (state, action) => {
+        state.error = action.payload
+        state.loading = false;
+      }
     }
 });
 
