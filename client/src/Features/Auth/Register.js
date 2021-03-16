@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import { useSelector } from "react-redux";
-import useAlert from '../Alert/hooks/useAlert.js';
-import useRegister from "../Auth/hooks/useRegister.js";
+import useAlert from '../alert/hooks/useAlert.js';
+import useRegister from "./hooks/useRegister.js";
 
 const Register = () => {
 
@@ -25,10 +25,8 @@ const Register = () => {
         e.preventDefault();
         if(password !== password2) {
             createAlert('Password do not match', 'danger');
-            console.log('Passwords do not match');
         } else {
             register({ name, email, password })
-            console.log("Registration complete");
         }
     }
 

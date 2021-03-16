@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import postSlice from "../state/postSlice.js";
 import fetcher from "../../../utils/fetcher.js";
-import useAlert from "../../Alert/hooks/useAlert.js"
+import useAlert from "../../alert/hooks/useAlert.js"
 
 const useComment = () => {
 
@@ -32,7 +32,6 @@ const useComment = () => {
                 createAlert("Comment Added", 'success');            
             }
         } catch (error) {
-            console.log(error);
             dispatch(COMMENT_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status

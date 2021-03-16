@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import profileSlice from "../../state/profileSlice.js";
-import useAlert from "../../../Alert/hooks/useAlert.js";
+import useAlert from "../../../alert/hooks/useAlert.js";
 import fetcher from "../../../../utils/fetcher.js";
 
 const useCreateProfile = () => {

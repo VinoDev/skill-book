@@ -28,7 +28,6 @@ const useFindProfile = (id) => {
                 dispatch(GET_PROFILE(resJson));            
             }
         } catch (error) {
-            console.log(error);
             dispatch(PROFILE_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status

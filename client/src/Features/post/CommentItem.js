@@ -8,9 +8,6 @@ const CommentItem = ({postId, comment}) => {
     const removeComment = useRemoveComment();
     const auth = useSelector((state) => state.auth);
 
-    console.log(postId)
-    console.log(comment);
-
     return (
         <div className="post bg-white p-1 my-1">
           <div>

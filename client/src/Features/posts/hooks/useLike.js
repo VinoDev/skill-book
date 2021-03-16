@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import postSlice from "../../post/state/postSlice.js";
 import fetcher from "../../../utils/fetcher.js";
-import useAlert from "../../Alert/hooks/useAlert.js";
+import useAlert from "../../alert/hooks/useAlert.js";
 
 const useLike = () => {
 
@@ -24,7 +24,6 @@ const useLike = () => {
                 dispatch(UPDATE_LIKES({postId, resJson}));            
             }
         } catch (error) {
-            console.log(error);
             dispatch(POST_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
@@ -47,7 +46,6 @@ const useLike = () => {
                 dispatch(UPDATE_LIKES({postId, resJson}));            
             }
         } catch (error) {
-            console.log(error);
             dispatch(POST_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
@@ -72,7 +70,6 @@ const useLike = () => {
                 createAlert('Post Removed', 'success');      
             }
         } catch (error) {
-            console.log(error);
             createAlert('Something went wrong...', 'danger');
             dispatch(POST_ERROR({
                 msg: error.response.statusText, 

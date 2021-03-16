@@ -28,7 +28,6 @@ const useFindPost = (id) => {
                 dispatch(GET_POST(resJson));            
             }
         } catch (error) {
-            console.log(error);
             dispatch(POST_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status

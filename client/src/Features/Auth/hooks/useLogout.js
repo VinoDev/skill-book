@@ -13,7 +13,6 @@ const useLogout = () => {
       dispatch(LOGOUT());
       dispatch(CLEAR_PROFILE());
       localStorage.removeItem('token');
-      console.log("User logout");
     }
   
     return [ logoutUser, isAuthenticated, loading ];

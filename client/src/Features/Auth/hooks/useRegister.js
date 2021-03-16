@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import authSlice from "../state/authSlice.js";
-import useAlert from "../../Alert/hooks/useAlert.js";
-import useLoadUser from '../../Auth/hooks/useLoadUser.js';
+import useAlert from "../../alert/hooks/useAlert.js";
+import useLoadUser from './useLoadUser.js';
 
 const { REGISTER_SUCCESS, REGISTER_FAIL } = authSlice.actions;
 
@@ -46,7 +46,6 @@ const useRegister = () => {
             }
         } catch (error) {
             registerFailRemoveToken()
-            console.log(error);
             createAlert("Something went wrong, try again later.", 'danger')
         }
     }

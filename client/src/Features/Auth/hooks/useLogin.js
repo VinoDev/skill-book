@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import authSlice from "../state/authSlice.js";
-import useAlert from "../../Alert/hooks/useAlert.js";
-import useLoadUser from '../../Auth/hooks/useLoadUser.js';
+import useAlert from "../../alert/hooks/useAlert.js";
+import useLoadUser from './useLoadUser.js';
 
 const { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } = authSlice.actions;
 
@@ -45,7 +45,6 @@ const useLogin = () => {
                 loadUser()
             }
         } catch (error) {
-            console.log(error);
             loginFailRemoveToken()
             createAlert("Something went wrong, try again later.", 'danger')
         }
@@ -54,7 +53,6 @@ const useLogin = () => {
     const logoutUser = () => {
         dispatch(LOGOUT());
         localStorage.removeItem('token')  
-        console.log("User logout");
     }
 
     return [ login, logoutUser ];

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import profileSlice from "../../profile/state/profileSlice.js";
 import authSlice from "../state/authSlice.js";
-import useAlert from "../../Alert/hooks/useAlert.js";
+import useAlert from "../../alert/hooks/useAlert.js";
 import fetcher from "../../../utils/fetcher.js";
 
 const useDeleteAccount = () => {
@@ -21,9 +21,7 @@ const useDeleteAccount = () => {
                 const res = await fetcher(`/api/user`, {
                     method: 'DELETE'         
                 })
-                console.log(res);
                 const resJson = await res.json();
-                console.log(resJson);
                 if(res.status !== 200) {
                     dispatch(PROFILE_ERROR({
                         msg: resJson.errors, 
@@ -37,7 +35,6 @@ const useDeleteAccount = () => {
                     history.push('/login')         
                 }
             } catch (error) {
-                console.log(error);
                 if(error.response.data.errors){
                     error.forEach(err => {
                         createAlert(err.msg, 'danger');

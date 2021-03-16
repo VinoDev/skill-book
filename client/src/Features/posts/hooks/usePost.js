@@ -28,7 +28,6 @@ const usePost = () => {
                 dispatch(GET_POSTS(resJson));            
             }
         } catch (error) {
-            console.log(error);
             dispatch(POST_ERROR({
                 msg: error.response.statusText, 
                 status: error.response.status
