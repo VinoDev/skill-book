@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Spinner from '../layout/Spinner.js'
+import Spinner from '../Layout/Spinner.js'
 import useFindProfile from './hooks/useFindProfile.js'
 import ProfileTop from './ProfileTop.js'
 import ProfileAbout from './ProfileAbout.js';

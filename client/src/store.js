@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { configureStore } from "@reduxjs/toolkit"
-import authSlice from './Features/auth/state/authSlice.js';
+import authSlice from './Features/Auth/state/authSlice.js';
 import profileSlice from './Features/profile/state/profileSlice.js';
 import postSlice from './Features/post/state/postSlice.js';
-import alertSlice from './Features/alert/state/alertSlice.js';
+import alertSlice from './Features/Alert/state/alertSlice.js';
 
 
 const rootReducer = combineReducers({

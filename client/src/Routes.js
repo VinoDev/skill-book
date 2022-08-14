@@ -1,9 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
-import Landing from './Features/layout/Landing.js';
-import NotFound from './Features/layout/NotFound.js';
-import Register from './Features/auth/Register.js';
-import Login from './Features/auth/Login.js';
-import Dashboard from './Features/dashboard/Dashboard.js';
+import Landing from './Features/Layout/Landing.js';
+import NotFound from './Features/Layout/NotFound.js';
+import Register from './Features/Auth/Register.js';
+import Login from './Features/Auth/Login.js';
+import Dashboard from './Features/Dashboard/Dashboard.js';
 import CreateProfile from './Features/profile/forms/CreateProfile.js'
 import EditProfile from './Features/profile/forms/EditProfile.js'
 import AddExperience from './Features/profile/forms/AddExperience.js'

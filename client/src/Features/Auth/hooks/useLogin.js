@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import authSlice from "../state/authSlice.js";
-import useAlert from "../../alert/hooks/useAlert.js";
+import useAlert from "../../Alert/hooks/useAlert.js";
 import useLoadUser from './useLoadUser.js';
 
 const { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } = authSlice.actions;

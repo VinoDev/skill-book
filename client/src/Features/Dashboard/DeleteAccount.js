@@ -1,4 +1,4 @@
-import useDeleteAccount from '../auth/hooks/useDeleteAccount.js';
+import useDeleteAccount from '../Auth/hooks/useDeleteAccount.js';
 
 const DeleteAccount = () => {
     const [ handleDeleteAccount ] = useDeleteAccount()

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import postSlice from "../../post/state/postSlice.js";
 import fetcher from "../../../utils/fetcher.js";
 import { useState } from "react";
-import useAlert from "../../alert/hooks/useAlert.js";
+import useAlert from "../../Alert/hooks/useAlert.js";
 
 const usePost = () => {
 

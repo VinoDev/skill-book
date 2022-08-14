@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Spinner from '../layout/Spinner.js';
+import Spinner from '../Layout/Spinner.js';
 import useFindPost from './hooks/useFindPost.js';
 import PostItem from '../posts/PostItem.js';
 import CommentForm from './CommentForm.js';

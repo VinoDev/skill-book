@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import postSlice from "../state/postSlice.js";
 import fetcher from "../../../utils/fetcher.js";
-import useAlert from "../../alert/hooks/useAlert.js"
+import useAlert from "../../Alert/hooks/useAlert.js"
 
 const useRemoveComment = () => {
 

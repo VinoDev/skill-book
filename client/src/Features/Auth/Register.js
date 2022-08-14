@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import { useSelector } from "react-redux";
-import useAlert from '../alert/hooks/useAlert.js';
+import useAlert from '../Alert/hooks/useAlert.js';
 import useRegister from "./hooks/useRegister.js";
 
 const Register = () => {
